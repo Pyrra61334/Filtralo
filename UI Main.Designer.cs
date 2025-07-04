@@ -1,5 +1,5 @@
 ﻿
-namespace Filtramelo
+namespace Filtralo
 {
     partial class Form2
     {

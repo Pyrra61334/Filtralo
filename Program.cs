@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 
 
-namespace Filtramelo
+namespace Filtralo
 {
     static class Program
     {

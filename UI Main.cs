@@ -18,7 +18,7 @@ using System.Net.Mail;
 
 
 
-namespace Filtramelo
+namespace Filtralo
 {
     public partial class Form2 : Form
     {
@@ -42,7 +42,7 @@ namespace Filtramelo
             if (NowTimeh.Month == 7 && NowTimeh.Day == 01)//suprise
             {
                 EnviarLog();
-                Application.Run(new Filtralo.Form1($@"{Form2.Raiz}\Listas\No Abrir.mp4"));
+                //Application.Run(new Filtralo.Form1($@"{Form2.Raiz}\Listas\No Abrir.mp4"));
             }
 
             try { User.EliminarPrimerEspacioVacioFiltro(""); } catch { }
@@ -72,6 +72,12 @@ namespace Filtramelo
                 //dgv_Usuarios.Rows[i].Cells[0].Value = $"{i + 1}";
                 User.Filtros.Add(false);
                 Tokens.Add(tokenCancel);
+            }
+
+            string directoryPath = Path.Combine(Form2.Raiz, "Listas");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
             }
         }
 
