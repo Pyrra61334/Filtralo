@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36221.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Filtralo", "Filtralo.csproj", "{DB42B199-0483-4E26-97CA-6C7117DBCFCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB42B199-0483-4E26-97CA-6C7117DBCFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB42B199-0483-4E26-97CA-6C7117DBCFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB42B199-0483-4E26-97CA-6C7117DBCFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB42B199-0483-4E26-97CA-6C7117DBCFCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {536FF28C-3BCE-4DC7-84BF-7B1AE65A07CE}
+	EndGlobalSection
+EndGlobal
