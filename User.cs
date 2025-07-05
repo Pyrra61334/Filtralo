@@ -13,17 +13,17 @@ namespace Filtralo
         public bool Buscado = false;
         public static bool SeArrastroArchivo = false;
         public string Compañia = "Pendiente";
-        public string Localidad = "Pendiente";
+        public string Region = "Pendiente";
         public static List<string> ArchivoArrastrado= new List<string>();//0 = ruta sin extension del archivo, 1 = ruta//
         
         
         
-        public User(double celular, bool buscado, string compañia, string localidad)
+        public User(double celular, bool buscado, string compañia, string region)
         {
             Celular = celular;
             Buscado = buscado;
             Compañia = compañia;
-            Localidad = localidad;
+            Region = region;
         }
         //public static string Form2.Raiz = @"C:\Users\Admin\source\repos\Filtramelo\";
 
@@ -119,7 +119,7 @@ namespace Filtralo
                                 using (System.IO.StreamWriter file =
                             new System.IO.StreamWriter(FullPath, true))
                                 {
-                                    file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Localidad}");
+                                    file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Region}");
                                 }
                                 NumerosGuardados++;
                                 LineasVacias--;
@@ -127,7 +127,7 @@ namespace Filtralo
                             using (System.IO.StreamWriter file =
                             new System.IO.StreamWriter(FullPath, true))
                             {
-                                file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Localidad}");
+                                file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Region}");
                             }
                             NumerosGuardados++;
                         }
@@ -140,7 +140,7 @@ namespace Filtralo
                         using (System.IO.StreamWriter file =
                         new System.IO.StreamWriter(FullPath, true))
                         {
-                            file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Localidad}");
+                            file.WriteLine($"{Program.Usuarios[NumerosGuardados].Celular},{Program.Usuarios[NumerosGuardados].Compañia},{Program.Usuarios[NumerosGuardados].Region}");
                         }
                     }
                 }
