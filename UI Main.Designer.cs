@@ -30,214 +30,236 @@ namespace Filtralo
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
-            this.dgv_Usuarios = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Funcionando = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UltimoGuardado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Localidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_Reset1 = new System.Windows.Forms.Button();
-            this.btn_Reset2 = new System.Windows.Forms.Button();
-            this.btn_Reset3 = new System.Windows.Forms.Button();
-            this.btn_Reset4 = new System.Windows.Forms.Button();
-            this.btn_Reset5 = new System.Windows.Forms.Button();
-            this.btn_SaveAndQui = new System.Windows.Forms.Button();
-            this.lab_Estado1 = new System.Windows.Forms.Label();
-            this.lab_Estado2 = new System.Windows.Forms.Label();
-            this.btn_SalirSinGuardar = new System.Windows.Forms.Button();
-            this.lab_HFE = new System.Windows.Forms.Label();
-            this.lab_TE = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Usuarios)).BeginInit();
-            this.SuspendLayout();
+            dgv_Usuarios = new DataGridView();
+            btn_Reset1 = new Button();
+            btn_Reset2 = new Button();
+            btn_Reset3 = new Button();
+            btn_Reset4 = new Button();
+            btn_Reset5 = new Button();
+            btn_SaveAndQui = new Button();
+            lab_Estado1 = new Label();
+            lab_Estado2 = new Label();
+            btn_SalirSinGuardar = new Button();
+            lab_HFE = new Label();
+            lab_TE = new Label();
+            testButton = new Button();
+            Column1 = new DataGridViewTextBoxColumn();
+            Funcionando = new DataGridViewTextBoxColumn();
+            UltimoGuardado = new DataGridViewTextBoxColumn();
+            Region = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dgv_Usuarios).BeginInit();
+            SuspendLayout();
             // 
             // dgv_Usuarios
             // 
-            this.dgv_Usuarios.AllowUserToAddRows = false;
-            this.dgv_Usuarios.AllowUserToDeleteRows = false;
-            this.dgv_Usuarios.BackgroundColor = System.Drawing.SystemColors.Highlight;
-            this.dgv_Usuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_Usuarios.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Funcionando,
-            this.UltimoGuardado,
-            this.Localidad});
-            this.dgv_Usuarios.GridColor = System.Drawing.SystemColors.HotTrack;
-            this.dgv_Usuarios.Location = new System.Drawing.Point(25, 12);
-            this.dgv_Usuarios.Name = "dgv_Usuarios";
-            this.dgv_Usuarios.ReadOnly = true;
-            this.dgv_Usuarios.RowHeadersVisible = false;
-            this.dgv_Usuarios.Size = new System.Drawing.Size(491, 329);
-            this.dgv_Usuarios.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Column1.HeaderText = "°";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 70;
-            // 
-            // Funcionando
-            // 
-            this.Funcionando.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Funcionando.HeaderText = "Celular";
-            this.Funcionando.Name = "Funcionando";
-            this.Funcionando.ReadOnly = true;
-            this.Funcionando.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // UltimoGuardado
-            // 
-            this.UltimoGuardado.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.UltimoGuardado.HeaderText = "Compañia";
-            this.UltimoGuardado.Name = "UltimoGuardado";
-            this.UltimoGuardado.ReadOnly = true;
-            this.UltimoGuardado.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Localidad
-            // 
-            this.Localidad.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Localidad.HeaderText = "Localidad";
-            this.Localidad.Name = "Localidad";
-            this.Localidad.ReadOnly = true;
-            this.Localidad.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            dgv_Usuarios.AllowUserToAddRows = false;
+            dgv_Usuarios.AllowUserToDeleteRows = false;
+            dgv_Usuarios.BackgroundColor = SystemColors.Highlight;
+            dgv_Usuarios.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgv_Usuarios.Columns.AddRange(new DataGridViewColumn[] { Column1, Funcionando, UltimoGuardado, Region });
+            dgv_Usuarios.GridColor = SystemColors.HotTrack;
+            dgv_Usuarios.Location = new Point(29, 14);
+            dgv_Usuarios.Margin = new Padding(4, 3, 4, 3);
+            dgv_Usuarios.Name = "dgv_Usuarios";
+            dgv_Usuarios.ReadOnly = true;
+            dgv_Usuarios.RowHeadersVisible = false;
+            dgv_Usuarios.Size = new Size(573, 380);
+            dgv_Usuarios.TabIndex = 0;
             // 
             // btn_Reset1
             // 
-            this.btn_Reset1.BackColor = System.Drawing.SystemColors.Control;
-            this.btn_Reset1.Location = new System.Drawing.Point(543, 12);
-            this.btn_Reset1.Name = "btn_Reset1";
-            this.btn_Reset1.Size = new System.Drawing.Size(75, 23);
-            this.btn_Reset1.TabIndex = 1;
-            this.btn_Reset1.Text = "Filtro 1";
-            this.btn_Reset1.UseVisualStyleBackColor = false;
-            this.btn_Reset1.Click += new System.EventHandler(this.btn_Reset1_Click);
+            btn_Reset1.BackColor = SystemColors.Control;
+            btn_Reset1.Location = new Point(634, 14);
+            btn_Reset1.Margin = new Padding(4, 3, 4, 3);
+            btn_Reset1.Name = "btn_Reset1";
+            btn_Reset1.Size = new Size(88, 27);
+            btn_Reset1.TabIndex = 1;
+            btn_Reset1.Text = "Filtro 1";
+            btn_Reset1.UseVisualStyleBackColor = false;
+            btn_Reset1.Click += btn_Reset1_Click;
             // 
             // btn_Reset2
             // 
-            this.btn_Reset2.Location = new System.Drawing.Point(542, 41);
-            this.btn_Reset2.Name = "btn_Reset2";
-            this.btn_Reset2.Size = new System.Drawing.Size(75, 23);
-            this.btn_Reset2.TabIndex = 2;
-            this.btn_Reset2.Text = "Filtro 2";
-            this.btn_Reset2.UseVisualStyleBackColor = true;
-            this.btn_Reset2.Click += new System.EventHandler(this.btn_Reset2_Click);
+            btn_Reset2.Location = new Point(632, 47);
+            btn_Reset2.Margin = new Padding(4, 3, 4, 3);
+            btn_Reset2.Name = "btn_Reset2";
+            btn_Reset2.Size = new Size(88, 27);
+            btn_Reset2.TabIndex = 2;
+            btn_Reset2.Text = "Filtro 2";
+            btn_Reset2.UseVisualStyleBackColor = true;
+            btn_Reset2.Click += btn_Reset2_Click;
             // 
             // btn_Reset3
             // 
-            this.btn_Reset3.Location = new System.Drawing.Point(542, 70);
-            this.btn_Reset3.Name = "btn_Reset3";
-            this.btn_Reset3.Size = new System.Drawing.Size(75, 23);
-            this.btn_Reset3.TabIndex = 3;
-            this.btn_Reset3.Text = "Filtro 3";
-            this.btn_Reset3.UseVisualStyleBackColor = true;
-            this.btn_Reset3.Click += new System.EventHandler(this.btn_Reset3_Click);
+            btn_Reset3.Location = new Point(632, 81);
+            btn_Reset3.Margin = new Padding(4, 3, 4, 3);
+            btn_Reset3.Name = "btn_Reset3";
+            btn_Reset3.Size = new Size(88, 27);
+            btn_Reset3.TabIndex = 3;
+            btn_Reset3.Text = "Filtro 3";
+            btn_Reset3.UseVisualStyleBackColor = true;
+            btn_Reset3.Click += btn_Reset3_Click;
             // 
             // btn_Reset4
             // 
-            this.btn_Reset4.Location = new System.Drawing.Point(542, 99);
-            this.btn_Reset4.Name = "btn_Reset4";
-            this.btn_Reset4.Size = new System.Drawing.Size(75, 23);
-            this.btn_Reset4.TabIndex = 4;
-            this.btn_Reset4.Text = "Filtro 4";
-            this.btn_Reset4.UseVisualStyleBackColor = true;
-            this.btn_Reset4.Click += new System.EventHandler(this.btn_Reset4_Click);
+            btn_Reset4.Location = new Point(632, 114);
+            btn_Reset4.Margin = new Padding(4, 3, 4, 3);
+            btn_Reset4.Name = "btn_Reset4";
+            btn_Reset4.Size = new Size(88, 27);
+            btn_Reset4.TabIndex = 4;
+            btn_Reset4.Text = "Filtro 4";
+            btn_Reset4.UseVisualStyleBackColor = true;
+            btn_Reset4.Click += btn_Reset4_Click;
             // 
             // btn_Reset5
             // 
-            this.btn_Reset5.Location = new System.Drawing.Point(542, 128);
-            this.btn_Reset5.Name = "btn_Reset5";
-            this.btn_Reset5.Size = new System.Drawing.Size(75, 23);
-            this.btn_Reset5.TabIndex = 5;
-            this.btn_Reset5.Text = "Filtro 5";
-            this.btn_Reset5.UseVisualStyleBackColor = true;
-            this.btn_Reset5.Click += new System.EventHandler(this.btn_Reset5_Click);
+            btn_Reset5.Location = new Point(632, 148);
+            btn_Reset5.Margin = new Padding(4, 3, 4, 3);
+            btn_Reset5.Name = "btn_Reset5";
+            btn_Reset5.Size = new Size(88, 27);
+            btn_Reset5.TabIndex = 5;
+            btn_Reset5.Text = "Filtro 5";
+            btn_Reset5.UseVisualStyleBackColor = true;
+            btn_Reset5.Click += btn_Reset5_Click;
             // 
             // btn_SaveAndQui
             // 
-            this.btn_SaveAndQui.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_SaveAndQui.Location = new System.Drawing.Point(533, 344);
-            this.btn_SaveAndQui.Name = "btn_SaveAndQui";
-            this.btn_SaveAndQui.Size = new System.Drawing.Size(96, 23);
-            this.btn_SaveAndQui.TabIndex = 6;
-            this.btn_SaveAndQui.Text = "Guardar y salir";
-            this.btn_SaveAndQui.UseVisualStyleBackColor = true;
-            this.btn_SaveAndQui.Click += new System.EventHandler(this.btn_SaveAndQui_Click);
+            btn_SaveAndQui.DialogResult = DialogResult.Cancel;
+            btn_SaveAndQui.Location = new Point(622, 397);
+            btn_SaveAndQui.Margin = new Padding(4, 3, 4, 3);
+            btn_SaveAndQui.Name = "btn_SaveAndQui";
+            btn_SaveAndQui.Size = new Size(112, 27);
+            btn_SaveAndQui.TabIndex = 6;
+            btn_SaveAndQui.Text = "Guardar y salir";
+            btn_SaveAndQui.UseVisualStyleBackColor = true;
+            btn_SaveAndQui.Click += btn_SaveAndQui_Click;
             // 
             // lab_Estado1
             // 
-            this.lab_Estado1.AutoSize = true;
-            this.lab_Estado1.Location = new System.Drawing.Point(22, 349);
-            this.lab_Estado1.Name = "lab_Estado1";
-            this.lab_Estado1.Size = new System.Drawing.Size(46, 13);
-            this.lab_Estado1.TabIndex = 7;
-            this.lab_Estado1.Text = "Estado: ";
+            lab_Estado1.AutoSize = true;
+            lab_Estado1.Location = new Point(26, 403);
+            lab_Estado1.Margin = new Padding(4, 0, 4, 0);
+            lab_Estado1.Name = "lab_Estado1";
+            lab_Estado1.Size = new Size(48, 15);
+            lab_Estado1.TabIndex = 7;
+            lab_Estado1.Text = "Estado: ";
             // 
             // lab_Estado2
             // 
-            this.lab_Estado2.AutoSize = true;
-            this.lab_Estado2.Location = new System.Drawing.Point(63, 349);
-            this.lab_Estado2.Name = "lab_Estado2";
-            this.lab_Estado2.Size = new System.Drawing.Size(55, 13);
-            this.lab_Estado2.TabIndex = 8;
-            this.lab_Estado2.Text = "En espera";
+            lab_Estado2.AutoSize = true;
+            lab_Estado2.Location = new Point(74, 403);
+            lab_Estado2.Margin = new Padding(4, 0, 4, 0);
+            lab_Estado2.Name = "lab_Estado2";
+            lab_Estado2.Size = new Size(57, 15);
+            lab_Estado2.TabIndex = 8;
+            lab_Estado2.Text = "En espera";
             // 
             // btn_SalirSinGuardar
             // 
-            this.btn_SalirSinGuardar.Location = new System.Drawing.Point(421, 344);
-            this.btn_SalirSinGuardar.Name = "btn_SalirSinGuardar";
-            this.btn_SalirSinGuardar.Size = new System.Drawing.Size(95, 23);
-            this.btn_SalirSinGuardar.TabIndex = 9;
-            this.btn_SalirSinGuardar.Text = "Salir sin guardar";
-            this.btn_SalirSinGuardar.UseVisualStyleBackColor = true;
-            this.btn_SalirSinGuardar.Click += new System.EventHandler(this.btn_SalirSinGuardar_Click);
+            btn_SalirSinGuardar.Location = new Point(491, 397);
+            btn_SalirSinGuardar.Margin = new Padding(4, 3, 4, 3);
+            btn_SalirSinGuardar.Name = "btn_SalirSinGuardar";
+            btn_SalirSinGuardar.Size = new Size(111, 27);
+            btn_SalirSinGuardar.TabIndex = 9;
+            btn_SalirSinGuardar.Text = "Salir sin guardar";
+            btn_SalirSinGuardar.UseVisualStyleBackColor = true;
+            btn_SalirSinGuardar.Click += btn_SalirSinGuardar_Click;
             // 
             // lab_HFE
             // 
-            this.lab_HFE.AutoSize = true;
-            this.lab_HFE.Location = new System.Drawing.Point(519, 315);
-            this.lab_HFE.Name = "lab_HFE";
-            this.lab_HFE.Size = new System.Drawing.Size(115, 13);
-            this.lab_HFE.TabIndex = 11;
-            this.lab_HFE.Text = "(Falta lista de numeros)";
+            lab_HFE.AutoSize = true;
+            lab_HFE.Location = new Point(606, 363);
+            lab_HFE.Margin = new Padding(4, 0, 4, 0);
+            lab_HFE.Name = "lab_HFE";
+            lab_HFE.Size = new Size(130, 15);
+            lab_HFE.TabIndex = 11;
+            lab_HFE.Text = "(Falta lista de numeros)";
             // 
             // lab_TE
             // 
-            this.lab_TE.AutoSize = true;
-            this.lab_TE.Location = new System.Drawing.Point(519, 293);
-            this.lab_TE.Name = "lab_TE";
-            this.lab_TE.Size = new System.Drawing.Size(90, 13);
-            this.lab_TE.TabIndex = 10;
-            this.lab_TE.Text = "Tiempo estimado:";
+            lab_TE.AutoSize = true;
+            lab_TE.Location = new Point(606, 338);
+            lab_TE.Margin = new Padding(4, 0, 4, 0);
+            lab_TE.Name = "lab_TE";
+            lab_TE.Size = new Size(103, 15);
+            lab_TE.TabIndex = 10;
+            lab_TE.Text = "Tiempo estimado:";
+            // 
+            // testButton
+            // 
+            testButton.Location = new Point(444, 397);
+            testButton.Name = "testButton";
+            testButton.Size = new Size(40, 27);
+            testButton.TabIndex = 12;
+            testButton.Text = "Test";
+            testButton.UseVisualStyleBackColor = true;
+            testButton.Visible = false;
+            testButton.Click += testButton_Click;
+            // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            Column1.HeaderText = "°";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            Column1.SortMode = DataGridViewColumnSortMode.NotSortable;
+            Column1.Width = 70;
+            // 
+            // Funcionando
+            // 
+            Funcionando.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Funcionando.HeaderText = "Celular";
+            Funcionando.Name = "Funcionando";
+            Funcionando.ReadOnly = true;
+            Funcionando.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // UltimoGuardado
+            // 
+            UltimoGuardado.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            UltimoGuardado.HeaderText = "Compañia";
+            UltimoGuardado.Name = "UltimoGuardado";
+            UltimoGuardado.ReadOnly = true;
+            UltimoGuardado.SortMode = DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Region
+            // 
+            Region.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Region.HeaderText = "Region";
+            Region.Name = "Region";
+            Region.ReadOnly = true;
+            Region.SortMode = DataGridViewColumnSortMode.NotSortable;
             // 
             // Form2
             // 
-            this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.MenuHighlight;
-            this.ClientSize = new System.Drawing.Size(642, 370);
-            this.Controls.Add(this.lab_HFE);
-            this.Controls.Add(this.lab_TE);
-            this.Controls.Add(this.btn_SalirSinGuardar);
-            this.Controls.Add(this.lab_Estado2);
-            this.Controls.Add(this.lab_Estado1);
-            this.Controls.Add(this.btn_SaveAndQui);
-            this.Controls.Add(this.btn_Reset5);
-            this.Controls.Add(this.btn_Reset4);
-            this.Controls.Add(this.btn_Reset3);
-            this.Controls.Add(this.btn_Reset2);
-            this.Controls.Add(this.btn_Reset1);
-            this.Controls.Add(this.dgv_Usuarios);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Form2";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Filtralo!!!";
-            this.Load += new System.EventHandler(this.Form2_Load);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form2_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form2_DragEnter);
-            ((System.ComponentModel.ISupportInitialize)(this.dgv_Usuarios)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AllowDrop = true;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.MenuHighlight;
+            ClientSize = new Size(749, 427);
+            Controls.Add(testButton);
+            Controls.Add(lab_HFE);
+            Controls.Add(lab_TE);
+            Controls.Add(btn_SalirSinGuardar);
+            Controls.Add(lab_Estado2);
+            Controls.Add(lab_Estado1);
+            Controls.Add(btn_SaveAndQui);
+            Controls.Add(btn_Reset5);
+            Controls.Add(btn_Reset4);
+            Controls.Add(btn_Reset3);
+            Controls.Add(btn_Reset2);
+            Controls.Add(btn_Reset1);
+            Controls.Add(dgv_Usuarios);
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 3, 4, 3);
+            Name = "Form2";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Filtralo!!!";
+            Load += Form2_Load;
+            DragDrop += Form2_DragDrop;
+            DragEnter += Form2_DragEnter;
+            ((System.ComponentModel.ISupportInitialize)dgv_Usuarios).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
@@ -252,12 +274,13 @@ namespace Filtralo
         private System.Windows.Forms.Button btn_SaveAndQui;
         private System.Windows.Forms.Label lab_Estado1;
         private System.Windows.Forms.Label lab_Estado2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Funcionando;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UltimoGuardado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Localidad;
         private System.Windows.Forms.Button btn_SalirSinGuardar;
         private System.Windows.Forms.Label lab_HFE;
         private System.Windows.Forms.Label lab_TE;
+        private Button testButton;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Funcionando;
+        private DataGridViewTextBoxColumn UltimoGuardado;
+        private DataGridViewTextBoxColumn Region;
     }
 }

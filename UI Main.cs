@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -9,12 +10,12 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Mail;
 
 
 
@@ -22,11 +23,13 @@ namespace Filtralo
 {
     public partial class Form2 : Form
     {
+        bool debug = true;
+
+        bool Salir = false;
         string version = "1.4";
         const float SegundosPorNumero = 5f;
         int intervalo_ms = 30;
         int ultimohecho = -1;
-        bool Salir = false;
         public CancellationTokenSource tokenCancel;
         public DialogResult MBresult;
         public Task<bool> MBCerrado;
@@ -38,6 +41,7 @@ namespace Filtralo
         public Form2()
         {
             InitializeComponent();
+            if (debug) {testButton.Visible=true;}
             var NowTimeh = DateTime.Now;
             if (NowTimeh.Month == 7 && NowTimeh.Day == 01)//suprise
             {
@@ -46,27 +50,9 @@ namespace Filtralo
             }
 
             try { User.EliminarPrimerEspacioVacioFiltro(""); } catch { }
-            lab_Estado2.Text= "En espera";
-            int Error;
-            if ((Error = User.LeerInfotxt(""))!= 0)
-            {
-                
-                switch (Error)
-                {
-                    case 1:
-                        MessageBox.Show("Verifica que el archivo ese cerrado antes de ingresarlo al programa");
-                        break;
-
-                    case 2:
-                        MessageBox.Show("Verifica que el archivo \"Lista de numeros\" exista en la carpeta de Listas del programa");
-                        break;
-                    case 3:
-                        lab_Estado2.Text = "No hay ningun numero para filtrar";
-                        break;
-
-                }
-            }
-            for(int i = 0; i<5; i++)
+            lab_Estado2.Text = "En espera";
+            
+            for (int i = 0; i < 5; i++)
             {
                 //dgv_Usuarios.Rows.Add();
                 //dgv_Usuarios.Rows[i].Cells[0].Value = $"{i + 1}";
@@ -89,10 +75,10 @@ namespace Filtralo
 
         private async void btn_Reset_Click(int n)
         {
-            
+
             if (Program.Usuarios.Count > 0)//Verifica si se ingresaron numeros para buscar, de otra forma, alerta al usuario
             {
-                if (Checkbtn_ResetnBackColor(n+1) != Color.Yellow)
+                if (Checkbtn_ResetnBackColor(n + 1) != Color.Yellow)
                 {
 
                     if (NowTimei == NowTimeDef)//Hora a la que se abre el primer filtro
@@ -142,7 +128,7 @@ namespace Filtralo
                                         posicion = ultimohecho;
                                         Log.CantidadNumeros = ultimohecho;
                                         Program.Usuarios[posicion].Compañia = "P";
-                                        Program.Usuarios[posicion].Localidad = "P";
+                                        Program.Usuarios[posicion].Region = "P";
                                         num = Program.Usuarios[ultimohecho].Celular;
                                         CrearFilaDgv_Usuarios();
 
@@ -154,14 +140,14 @@ namespace Filtralo
                                     else// x reintento
                                     {
 
-                                        labEstado2($"Buscando {User.NumeroDeUsuarios - ultimohecho+1} restantes");
+                                        labEstado2($"Buscando {User.NumeroDeUsuarios - ultimohecho + 1} restantes");
                                         if (reintenta == 4) //Numero maximo de reintentos superado
                                         {
                                             reintenta = 0;
                                             ultimohecho++;
                                             posicion = ultimohecho;
                                             Program.Usuarios[posicion].Compañia = "P";
-                                            Program.Usuarios[posicion].Localidad = "P";
+                                            Program.Usuarios[posicion].Region = "P";
                                             num = Program.Usuarios[ultimohecho].Celular;
                                             CrearFilaDgv_Usuarios();
 
@@ -196,14 +182,18 @@ namespace Filtralo
                                             DarClickSearch(driver, intervalo_ms, 0);
                                             try//Comprueba si estan disponibles la compañia y la localidad
                                             {
-                                                if(RegistrarCL(driver, intervalo_ms, posicion, 0)==true) reintenta = 0;
+                                                if (RegistrarCL(driver, intervalo_ms, posicion, 0) == true)
+                                                {
+                                                    Program.Usuarios[posicion].Region = num.ToString().Substring(0,1);
+                                                    reintenta = 0;
+                                                }
                                                 else//Si fallo en encontrar compañia y localidad
                                                 {
                                                     try//Comprueba si salio el aviso de "Numero no existe"
                                                     {
                                                         string a = driver.FindElement(By.XPath("/html/body/div[2]/div/div[4]/div/form/div[1]/div/div[1]/div/div[1]/div/ul/li/span[1]")).Text.ToString();
                                                         Program.Usuarios[posicion].Compañia = "NE";
-                                                        Program.Usuarios[posicion].Localidad = "NE";
+                                                        Program.Usuarios[posicion].Region = "NE";
                                                         reintenta = 0;
                                                     }
                                                     catch//Fallo la busqueda, volver a intentar
@@ -227,21 +217,21 @@ namespace Filtralo
                                     else//No es un numero de 10 digitos por lo que sin buscar, se sabe que no existe
                                     {
                                         Program.Usuarios[posicion].Compañia = "NE";
-                                        Program.Usuarios[posicion].Localidad = "NE";
+                                        Program.Usuarios[posicion].Region = "NE";
                                         reintenta = 0;
 
                                     }
                                     dgv_Usuarios.Rows[posicion].Cells[0].Value = $"{posicion + 1}";
                                     dgv_Usuarios.Rows[posicion].Cells[1].Value = num;
                                     dgv_Usuarios.Rows[posicion].Cells[2].Value = Program.Usuarios[posicion].Compañia;
-                                    dgv_Usuarios.Rows[posicion].Cells[3].Value = Program.Usuarios[posicion].Localidad;
+                                    dgv_Usuarios.Rows[posicion].Cells[3].Value = Program.Usuarios[posicion].Region;
                                 }
                                 catch
                                 {
                                     dgv_Usuarios.Rows[posicion].Cells[0].Value = $"{posicion + 1}";
                                     dgv_Usuarios.Rows[posicion].Cells[1].Value = Program.Usuarios[ultimohecho].Celular;
                                     dgv_Usuarios.Rows[posicion].Cells[2].Value = Program.Usuarios[posicion].Compañia;
-                                    dgv_Usuarios.Rows[posicion].Cells[3].Value = Program.Usuarios[posicion].Localidad;
+                                    dgv_Usuarios.Rows[posicion].Cells[3].Value = Program.Usuarios[posicion].Region;
                                     reintenta++;
                                     btn_ResetnBackColor(n + 1, 1);
                                     Thread.Sleep(500);
@@ -266,7 +256,7 @@ namespace Filtralo
 
                             if (Salir == true && User.Filtros[0] == false && User.Filtros[1] == false && User.Filtros[2] == false && User.Filtros[3] == false && User.Filtros[4] == false)
                             {
-                                
+
                                 Log.CantidadNumeros = User.NumeroDeUsuarios; //Guatdando info en log
 
                                 if (token.IsCancellationRequested)//Se apreto el boton de guardar y salir(y Se guardo en GuardarYSalir()) ó Se le dio click a salir sin guardar//
@@ -294,7 +284,7 @@ namespace Filtralo
             else
             {
                 await Task.Run(() =>
-                { 
+                {
                     int MiliIntervalo = 333;
                     labEstado2("NO HAY NINGUN NUMERO PARA FILTRAR");
                     btn_ResetnBackColor(n + 1, 1);
@@ -378,8 +368,8 @@ namespace Filtralo
                             MessageBox.Show("Verifica que el archivo ese cerrado antes de ingresarlo al programa");
                         }
 
-                        int SegundosEstimados = Convert.ToInt32((SegundosPorNumero* User.NumeroDeUsuarios) / 5 + 13);
-                        lab_HFE.Invoke((MethodInvoker)(() => lab_HFE.Text = $"{SegundosEstimados/3600}h {(SegundosEstimados%3600)/60}m (5 Filtros activos)"));
+                        int SegundosEstimados = Convert.ToInt32((SegundosPorNumero * User.NumeroDeUsuarios) / 5 + 13);
+                        lab_HFE.Invoke((MethodInvoker)(() => lab_HFE.Text = $"{SegundosEstimados / 3600}h {(SegundosEstimados % 3600) / 60}m (5 Filtros activos)"));
                     }
                 }
             });
@@ -421,7 +411,7 @@ namespace Filtralo
                 }
                 if (User.Filtros[0] == false && User.Filtros[1] == false && User.Filtros[2] == false && User.Filtros[3] == false && User.Filtros[4] == false)
                 {
-                    Application.Exit();                
+                    Application.Exit();
                 }
             });
             Thread.Sleep(10000);
@@ -474,8 +464,8 @@ namespace Filtralo
                         MBresult = DialogResult.OK;
                     }
                 }
-                
-                
+
+
             });
 
             await Task.Run(() =>
@@ -622,7 +612,7 @@ namespace Filtralo
                 }
             });
 
-            
+
         }
         Color Checkbtn_ResetnBackColor(int boton)
         {
@@ -664,18 +654,20 @@ namespace Filtralo
             {
                 contador++;
                 Thread.Sleep(intervalo);
-                if (contador < 500/intervalo_ms) DarClickSearch(driver, intervalo, contador);
+                if (contador < 500 / intervalo_ms) DarClickSearch(driver, intervalo, contador);
             }
 
         }
         bool RegistrarCL(IWebDriver driver, int intervalo, int posicion, int contador)
         {
+            String compania = "/html/body/div[2]/div/div[4]/div/form/div[3]/div/div/div[2]/div[6]/div[2]";
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-                _ = wait.Until(drv => drv.FindElement(By.XPath("//*[@id='FORM_myform:TBL_numberInfoTable_content']/div[7]/div[2]")));
-                Program.Usuarios[posicion].Compañia = driver.FindElement(By.XPath("/ html / body / div[2] / div / div[4] / div / form / div[3] / div / div / div[2] / div[7] / div[2]")).Text.ToString();
-                Program.Usuarios[posicion].Localidad = driver.FindElement(By.XPath("//*[@id='FORM_myform:TBL_numberInfoTable_content']/div[3]/div[2]")).Text.ToString();
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
+                _ = wait.Until(drv => drv.FindElement(By.XPath(compania)).Displayed);
+                Thread.Sleep(100);
+                Program.Usuarios[posicion].Compañia = driver.FindElement(By.XPath(compania)).Text.ToString();
+                //Program.Usuarios[posicion].Region = driver.FindElement(By.XPath("//*[@id='FORM_myform:TBL_numberInfoTable_content']/div[3]/div[2]")).Text.ToString();
                 Program.Usuarios[posicion].Buscado = true;
                 return true;
 
@@ -683,13 +675,13 @@ namespace Filtralo
             catch
             {
                 contador++;
-                while (contador < 500/intervalo_ms)
+                while (contador < 500 / intervalo_ms)
                 {
                     try
                     {
                         Thread.Sleep(intervalo);
-                        Program.Usuarios[posicion].Compañia = driver.FindElement(By.XPath("/ html / body / div[2] / div / div[4] / div / form / div[3] / div / div / div[2] / div[7] / div[2]")).Text.ToString();
-                        Program.Usuarios[posicion].Localidad = driver.FindElement(By.XPath("//*[@id='FORM_myform:TBL_numberInfoTable_content']/div[3]/div[2]")).Text.ToString();
+                        Program.Usuarios[posicion].Compañia = driver.FindElement(By.XPath(compania)).Text.ToString();
+                        //Program.Usuarios[posicion].Region = driver.FindElement(By.XPath("//*[@id='FORM_myform:TBL_numberInfoTable_content']/div[3]/div[2]")).Text.ToString();
                         Program.Usuarios[posicion].Buscado = true;
                         return true;
                     }
@@ -700,7 +692,7 @@ namespace Filtralo
                 }
                 return false;
             }
-           
+
         }
         private async void HoraFinalEstimada()
         {
@@ -766,11 +758,11 @@ namespace Filtralo
                 }
                 int NumFiltros = User.Filtros.Count();
                 int FiltrosActivos = 0;
-                for(int i = 0; i<NumFiltros; i++)
+                for (int i = 0; i < NumFiltros; i++)
                 {
                     if (User.Filtros[i] == true) FiltrosActivos++;
                 }
-                double TiempoEstimadoSeg = Convert.ToDouble((TPPB*(User.NumeroDeUsuarios-ultimohecho+1)/FiltrosActivos)+13);
+                double TiempoEstimadoSeg = Convert.ToDouble((TPPB * (User.NumeroDeUsuarios - ultimohecho + 1) / FiltrosActivos) + 13);
 
                 var NowTime = DateTime.Now;
                 var FinalTime = NowTime.AddSeconds(TiempoEstimadoSeg);
@@ -781,7 +773,7 @@ namespace Filtralo
                 lab_HFE.Invoke((MethodInvoker)(() => lab_HFE.Text = FinalTime.ToString()));
             });
         }
-        async Task<bool> Definir (bool b)
+        async Task<bool> Definir(bool b)
         {
             if (b == true)
             {
@@ -890,14 +882,14 @@ namespace Filtralo
 
         private async void EnviarLog()
         {
-            
+
             await Task.Run(() =>
             {
                 try
                 {
                     Log.Registro = 0;//Pa saber cuando borrar datos
                     Log.RondasLog = 0;// Pa'nobrar archivo
-                    Log.TPPB = (((DateTime.Now - Log.NowTimei).TotalSeconds-10) * Log.CantidadFiltros) / ultimohecho;
+                    Log.TPPB = (((DateTime.Now - Log.NowTimei).TotalSeconds - 10) * Log.CantidadFiltros) / ultimohecho;
                     Log.Puerto = 587;
 
                     string line = "";
@@ -926,7 +918,7 @@ namespace Filtralo
 
                                         default:
 
-                                             break;
+                                            break;
                                     }
                                 }
                                 catch
@@ -941,14 +933,14 @@ namespace Filtralo
                         CrearControlLogDefault();
                     }//Crear un Control Log default
 
-                    
+
                     if (Log.Registro < 50)
                     {
 
                         if (Log.Registro++ == 0)//Si es primer Log.Registro del excel
                         {
                             using (System.IO.StreamWriter file =
-                                new System.IO.StreamWriter($@"{Form2.Raiz}\Listas\Log({ (50 * Log.RondasLog) + 1}~{ 50 * (Log.RondasLog + 1)}).csv", true))
+                                new System.IO.StreamWriter($@"{Form2.Raiz}\Listas\Log({(50 * Log.RondasLog) + 1}~{50 * (Log.RondasLog + 1)}).csv", true))
                             {
                                 file.WriteLine($"Registro, Version, Nombre PC, Numero de consultas, Cantidad de filtros, Tiempo promedio por busqueda, Inicio, Final");
                             }
@@ -978,13 +970,13 @@ namespace Filtralo
 
                             Log.NowTimef = DateTime.Now;
                             //Escribir Log
-                            
-                            
+
+
                             System.Security.Principal.WindowsIdentity user = System.Security.Principal.WindowsIdentity.GetCurrent();
                             string usuario = user.Name;
 
                             using (System.IO.StreamWriter file =
-                                new System.IO.StreamWriter($@"{Form2.Raiz}\Listas\Log({ (50 * Log.RondasLog) + 1}~{ 50 * (Log.RondasLog + 1)}).csv", true))
+                                new System.IO.StreamWriter($@"{Form2.Raiz}\Listas\Log({(50 * Log.RondasLog) + 1}~{50 * (Log.RondasLog + 1)}).csv", true))
                             {
                                 file.WriteLine($"{Log.Registro}, {version}, {usuario}, {Log.CantidadNumeros}, {Log.CantidadFiltros}, {Log.TPPB}, {Log.NowTimei}, {Log.NowTimef}");
                             }
@@ -992,7 +984,7 @@ namespace Filtralo
                             //Actualizar Control.txt
                             File.Delete($@"{Form2.Raiz}\Listas\LogControl.txt");
                             CrearControlLog(Log.Registro, Log.RondasLog, Log.TPPB, Log.Puerto);
-                            
+
 
                             //Envio Log
                             MailMessage mail = new MailMessage();
@@ -1001,7 +993,7 @@ namespace Filtralo
                             //mail.To.Add("recibirlogs@outlook.com");
                             mail.Subject = $"Filtralo {Log.NowTimef}";
                             mail.Body = $"Filtralo v{version}  {Log.NowTimef}";
-                            Attachment at = new Attachment($@"{Form2.Raiz}\Listas\Log({ (50 * Log.RondasLog) + 1}~{ 50 * (Log.RondasLog + 1)}).csv");
+                            Attachment at = new Attachment($@"{Form2.Raiz}\Listas\Log({(50 * Log.RondasLog) + 1}~{50 * (Log.RondasLog + 1)}).csv");
                             mail.Attachments.Add(at);
                             SmtpClient smtp = new SmtpClient();
                             smtp.Host = "smtp.outlook.com";
@@ -1014,7 +1006,7 @@ namespace Filtralo
                     }
                     else//Si hay mas de 50 registros en un excel
                     {
-                        File.Delete($@"{Form2.Raiz}\Listas\Log({ (50 * Log.RondasLog) + 1}~{ 50 * (Log.RondasLog + 1)}).csv");
+                        File.Delete($@"{Form2.Raiz}\Listas\Log({(50 * Log.RondasLog) + 1}~{50 * (Log.RondasLog + 1)}).csv");
                         Log.RondasLog++;
                         Log.Registro = 0;
 
@@ -1035,6 +1027,42 @@ namespace Filtralo
         private void Form2_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void testButton_Click(object sender, EventArgs e)
+        {
+            addNumbersTest();
+        }
+
+        private void addNumbersTest() { 
+            List<long> numeros = new List<long>();
+            numeros = new List<long> {  9817508727,
+                                        9622103067,
+                                        9981629709,
+                                        9811973936,
+                                        9623261005,
+                                        9992155850,
+                                        9331603512,
+                                        9934268760,
+                                        9831850884,
+                                        9991593129,
+                                        9612461416,
+                                        9841000590,
+                                        9992500290,
+                                        9934002332,
+                                        9982700865,
+                                        9811185256,
+                                        9646239110,
+                                        9613481927,
+                                        9631703678,
+                                        9817508727,
+                                        9622103067 };
+            foreach (long numero in numeros)
+            {
+                Program.Usuarios.Add(new User(numero, false, "Pendiente", "Pendiente"));
+            }
+            User.NumeroDeUsuarios = Program.Usuarios.Count();
+            labEstado2($"{User.NumeroDeUsuarios} numeros en espera");
         }
     }
 }
